@@ -22,17 +22,21 @@ def index_page():
     return render_template("index.html", recipes=mongo.db.recipes.find())
 
 
-@app.route('/add_task')
-def add_task():
-    return render_template('addtask.html',
-                           categories=mongo.db.categories.find())
+@app.route('/recipes_list')
+def recipes_list():
+    return render_template("recipes_list.html", recipes=mongo.db.recipes.find())
 
 
-@app.route('/insert_task', methods=['POST'])
-def insert_task():
-    tasks = mongo.db.tasks
-    tasks.insert_one(request.form.to_dict())
-    return redirect(url_for('get_tasks'))
+@app.route('/add_recipe', methods=['POST'])
+def add_recipe():
+    recipes = mongo.db.recipes
+    recipes.insert_one(request.form.to_dict())
+    return redirect(url_for('recipes_list'))
+
+
+@app.route('/contact_us')
+def contact_us():
+    return render_template('contact_us.html')
 
 
 @app.route('/edit_task/<task_id>')
