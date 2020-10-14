@@ -15,11 +15,11 @@ app.config['MONGO_URI'] = os.environ.get('MONGO_URI', 'mongodb://localhost')
 mongo = PyMongo(app)
 
 
+# index.html / homepage
 @app.route('/')
-@app.route('/get_tasks')
-def get_tasks():
-    return render_template("tasks.html",
-                           tasks=mongo.db.tasks.find())
+@app.route('/index_page')
+def index_page():
+    return render_template("index.html", recipes=mongo.db.recipes.find())
 
 
 @app.route('/add_task')
